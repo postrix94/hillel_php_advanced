@@ -1,12 +1,11 @@
 <?php
-require_once "./db/settings_db.php";
+require __DIR__ . '/vendor/autoload.php';
 
-$DSN = getDSN(dbHost:DB_HOST,dbName: DB_NAME, dbUser: DB_USER, dbPassword: DB_PASSWORD);
+use \App\RGB;
 
-try{
-    $connDb = new PDO($DSN, options:[PDO::ATTR_DEFAULT_FETCH_MODE =>PDO::FETCH_ASSOC]);
-}catch (PDOException $e){
-    die ("DB Connection Error: <b>{$e->getMessage()}</b>");
-}
+$red = new RGB(255,0,0);
+$green = new RGB(0,128,0);
+$randomColor = RGB::random();
+$mixedColor = $red->mix($green);
+$isEqualsColor = $red->equals($green);
 
-echo "Connection db_" . DB_NAME .  " Success...";
