@@ -18,7 +18,7 @@ trait TUserMagicMethod
 
     private function existValue($value = null): void {
         if(is_null($value)) {
-            throw new \ErrorException("Передайте значение, чтобы установить имя или возраст!");
+            throw new \ErrorException("Передайте значение, чтобы установить имя, почту или возраст!");
         }
     }
 

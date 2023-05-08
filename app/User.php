@@ -22,6 +22,11 @@ class User
         $this->age = $age;
     }
 
+    private function setEmail(string $email): void
+    {
+        $this->email = $email;
+    }
+
     public function getAll(): void
 
     {

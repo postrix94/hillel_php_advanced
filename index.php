@@ -7,8 +7,10 @@ $user = new User();
 try {
     $user->setName( "Dima");
     $user->setAge(4);
+    $user->setEmail("test@gmail.com");
     $user->getAll();
-    $user->setEmail();
+    $user->setTest();
+
 
 }catch (ErrorException $error) {
     echo $error->getMessage();
