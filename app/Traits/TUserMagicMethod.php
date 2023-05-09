@@ -10,9 +10,9 @@ trait TUserMagicMethod
             throw new \ErrorException("Method - '{$methodName}' no exist");
         }
 
-        $this->existValue(...$values);
+        $this->existValue($values);
 
-        $this->$methodName(...$values);
+        call_user_func_array([$this,$methodName], $values);
     }
 
 
