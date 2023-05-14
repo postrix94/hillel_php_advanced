@@ -1,7 +1,7 @@
 <?php
+
 require __DIR__ . '/vendor/autoload.php';
+use App\Logger;
 
-use App\Product;
-
-$product = new Product();
-
+$logger = new Logger('raw', 'by_sms');
+$logger->log('Emergency error! Please fix me!');
