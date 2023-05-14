@@ -1,14 +1,7 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
-use App\User;
 
-$user = new User();
+use App\Product;
 
-try {
-    $user->setPassword('123456789');
-    $user->setId( '1');
-}catch (Error $error) {
-    echo $error->getMessage();
-}
+$product = new Product();
 
-echo "<br>" . $user->getUserData();

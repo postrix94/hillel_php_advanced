@@ -1,3 +1,13 @@
-Створіть клас User з полями id (має містити лише число) і password (довжина поля має бути не більше 8 символів) та методом getUserData, який повертає id та пароль.
+За принципом Single Responsibility проведіть рефакторинг класу так щоб у вас був клас для роботи з продуктом, для обробки продукту та для виведення продукту.
 
-Обробіть винятки, коли id містить не число та password містить більше 8 символів, при цьому виведіть повідомлення винятки, файл у якому цей виняток виник і номер рядка
+Без реалізації коду
+
+class Product {
+public function get(name) {}
+public function set(name, value) {}
+public function save() {}
+public function update() {}
+public function delete() {}
+public function show() {}
+public function print() {}
+}
