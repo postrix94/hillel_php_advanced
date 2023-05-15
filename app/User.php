@@ -5,13 +5,20 @@ namespace App;
 class User
 {
     public int $age = 20;
-    private string $name = "John";
-    private string $surname = "Doe";
-    protected float $money = 10.5;
+    public string $name = "John";
+    public string $surname = "Doe";
+    private float $money = 10.5;
 
-    public function setName(string $name) {}
+    public function setName(string $name)
+    {
+    }
 
-    protected function isMoney() {}
+    protected function isMoney()
+    {
+    }
 
-    private function test(string $value, int $name) {}
+    private function printInformation(int $age, string $name, string $surname)
+    {
+
+    }
 }

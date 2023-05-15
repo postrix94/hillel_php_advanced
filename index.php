@@ -3,88 +3,113 @@ require __DIR__ . '/vendor/autoload.php';
 
 use App\User;
 
-getInformationClass(User::class);
+dd(getInformationClass(User::class));
 
-function getInformationClass($className) {
-    $classInformation = ['public' => [
-        "properties" => [],
-        "methods" => [],
-    ], 'protected' => [
-        "properties" => [],
-        "methods" => [],
-    ], 'private' => [
-        "properties" => [],
-        "methods" => [],
-    ]];
+function getInformationClass($className)
+{
+    $classInformation = ['public' => [], 'protected' => [], 'private' => []];
 
     $reflector = new ReflectionClass($className);
     $methods = $reflector->getMethods();
     $properties = $reflector->getProperties();
 
+    addInformationProperties($properties,$classInformation);
+    addInformationMethods($methods, $classInformation);
 
-   foreach ($properties as $property) {
-       if($property->isPublic()) {
-           array_push($classInformation['public']['properties'],getInformationProperty($property));
-       }
+    return $classInformation;
 
-       if($property->isProtected()) {
-          array_push($classInformation['protected']['properties'],getInformationProperty($property));
-       }
+}
 
-       if($property->isPrivate()) {
-           array_push($classInformation['private']['properties'],getInformationProperty($property));
-       }
+function addInformationProperties($properties, &$classInformation) {
+    foreach ($properties as $property) {
+        if ($property->isPublic()) {
+            if (key_exists('properties', $classInformation['public'])) {
+                array_push($classInformation['public']['properties'], getInformationProperty($property));
+            } else {
+                $classInformation['public']['properties'] = [];
+                array_push($classInformation['public']['properties'], getInformationProperty($property));
+            }
+        }
 
-   }
+        if ($property->isProtected()) {
+            if (key_exists('properties', $classInformation['protected'])) {
+                array_push($classInformation['protected']['properties'], getInformationProperty($property));
+            } else {
+                $classInformation['protected']['properties'] = [];
+                array_push($classInformation['protected']['properties'], getInformationProperty($property));
+            }
+        }
 
+        if ($property->isPrivate()) {
+            if (key_exists('properties', $classInformation['private'])) {
+                array_push($classInformation['private']['properties'], getInformationProperty($property));
+            } else {
+                $classInformation['private']['properties'] = [];
+                array_push($classInformation['private']['properties'], getInformationProperty($property));
+            }
+        }
+
+    }
+}
+
+function addInformationMethods($methods, &$classInformation) {
     foreach ($methods as $method) {
-        if($method->isPublic()) {
-           array_push($classInformation['public']['methods'],getInformationMethod($method));
-
+        if ($method->isPublic()) {
+            if (key_exists('methods', $classInformation['public'])) {
+                array_push($classInformation['public']['methods'], getInformationMethod($method));
+            } else {
+                $classInformation['public']['methods'] = [];
+                array_push($classInformation['public']['methods'], getInformationMethod($method));
+            }
 
         }
 
-        if($method->isProtected()) {
-            array_push($classInformation['protected']['methods'],getInformationMethod($method));
+        if ($method->isProtected()) {
+            if (key_exists('methods', $classInformation['protected'])) {
+                array_push($classInformation['protected']['methods'], getInformationMethod($method));
+            } else {
+                $classInformation['protected']['methods'] = [];
+                array_push($classInformation['protected']['methods'], getInformationMethod($method));
+            }
 
         }
 
-        if($method->isPrivate()) {
-            array_push($classInformation['private']['methods'],getInformationMethod($method));
+        if ($method->isPrivate()) {
+            if (key_exists('methods', $classInformation['private'])) {
+                array_push($classInformation['private']['methods'], getInformationMethod($method));
+            } else {
+                $classInformation['private']['methods'] = [];
+                array_push($classInformation['private']['methods'], getInformationMethod($method));
+            }
 
         }
 
     }
-
-
-    dd($classInformation);
-
-
 }
 
-function getInformationProperty($property) {
+function getInformationProperty($property)
+{
     return ['name' => $property->getName(), 'type' => $property->getType()->getName(),];
-
 }
 
-function getInformationMethod($method) {
-
-    return ['name' => $method->getName(), 'args' =>  getInformationParametrsMethod($method->getParameters())];
-
+function getInformationMethod($method)
+{
+    return ['name' => $method->getName(), 'args' => getInformationParametrsMethod($method->getParameters())];
 }
 
-function getInformationParametrsMethod($args) {
+function getInformationParametrsMethod($args)
+{
     $argsInformation = [];
 
     foreach ($args as $arg) {
-        $argsInformation['name'] = $arg->getName();
-        $argsInformation['type'] = $arg->getType()->getName();
+        array_push($argsInformation, ['name' => $arg->getName(), 'type' => $arg->getType()->getName()]);
     }
 
     return $argsInformation;
 }
 
-function dd($value) {
+function dd($value)
+{
     echo "<pre>";
     var_dump($value);
     echo "</pre>";
