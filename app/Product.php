@@ -3,12 +3,22 @@
 namespace App;
 
 use App\Product\AbstractProduct;
-use App\Traits\{TActionProduct, TUI_Product};
 
 class Product extends AbstractProduct {
-    use TActionProduct, TUI_Product;
+
 
     protected ActionProduct $action;
     protected UI_Product $productUI;
+
+    public function saveProduct($productName): void {}
+
+    public function updateProduct($productName):void {}
+
+    public function deleteProduct($productName):void {}
+
+    public function showProduct($productName):void {}
+
+    public function printProduct($productName) {}
+
 
 }
