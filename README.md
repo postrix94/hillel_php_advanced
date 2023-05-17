@@ -1,19 +1,25 @@
-Відрефакторити приклад по принципу Interface segregation:
+Відрефакторити приклад по принципу Dependency inversion:
 
-interface Bird
+<?php
+class Mysql
 {
-public function eat();
-public function fly();
+    public function getData()
+    {
+        return 'some data from database';
+    }
 }
 
-class Swallow implements Bird
+class Controller
 {
-public function eat() { ... }
-public function fly() { ... }
-}
+    private $adapter;
 
-class Ostrich implements Bird
-{
-public function eat() { ... }
-public function fly() { /* exception */ }
+    public function __construct(Mysql $mysql)
+    {
+        $this->adapter = $mysql;
+    }
+
+    function getData()
+    {
+        $this->adapter->getData();
+    }
 }
