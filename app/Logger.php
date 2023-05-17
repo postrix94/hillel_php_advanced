@@ -2,21 +2,21 @@
 
 namespace App;
 
-use App\Interfaces\IDelivery;
-use App\Interfaces\IFormat;
+use App\Delivery\Interfaces\IDelivery;
+use App\Format\Interfaces\IFormat;
 
 class Logger
 {
     private IFormat $format;
     private IDelivery $delivery;
 
-    public function __construct(string $format,string $delivery)
+    public function __construct(IFormat $format,IDelivery $delivery)
     {
-        $this->format = new Format($format);
-        $this->delivery = new Delivery($delivery);
+        $this->format = $format;
+        $this->delivery = $delivery;
     }
 
-    public function log($string)
+    public function log(string $string): void
     {
         $this->delivery->deliver($this->format->getFormat($string));
     }

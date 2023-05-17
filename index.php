@@ -3,5 +3,9 @@
 require __DIR__ . '/vendor/autoload.php';
 use App\Logger;
 
-$logger = new Logger('raw', 'by_sms');
-$logger->log('Emergency error! Please fix me!');
+$withDataAndDetails = new \App\Format\WithDataAndDetails();
+$email = new \App\Delivery\Email();
+
+
+$logger = new Logger($withDataAndDetails, $email);
+$logger->log('String Format');
