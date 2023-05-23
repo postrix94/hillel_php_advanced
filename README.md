@@ -1,25 +1,18 @@
-Відрефакторити приклад по принципу Dependency inversion:
+Factory Method: Taxi
 
-<?php
-class Mysql
-{
-    public function getData()
-    {
-        return 'some data from database';
-    }
-}
+Побудувати систему таксі.
 
-class Controller
-{
-    private $adapter;
 
-    public function __construct(Mysql $mysql)
-    {
-        $this->adapter = $mysql;
-    }
 
-    function getData()
-    {
-        $this->adapter->getData();
-    }
-}
+
+Клієнтський код повинен викликати тип доставки, який у свою чергу віддаватиме машину відповідного типу, яка матиме 2 методи (виведення моделі машини та виведення ціни).
+
+
+
+Усього буде 3 типи таксі:
+
+
+
+Економ
+Стандарт
+Люкс

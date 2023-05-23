@@ -1,11 +1,17 @@
 <?php
 
+
+use App\Creator\BoltCreator;
+use App\Creator\TaxiCreator;
+use App\Creator\UberCreator;
+
 require __DIR__ . '/vendor/autoload.php';
 
-use App\Controller;
-use App\Db\MySql\MySql;
+taxiDelivery(new UberCreator(), 'lux');
 
+function taxiDelivery(TaxiCreator $taxi, string $type = 'standart') {
+    $car = $taxi->getTaxi($type);
 
-$controller = new Controller(new MySql());
-
-echo $controller->getData();
+    echo $car->getModel() . "</br>";
+    echo $car->getPrice();
+}
