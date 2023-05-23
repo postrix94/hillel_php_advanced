@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\Creator;
+namespace App\Creator\Abstraction;
 
 
 use App\TaxiDelivery\Interfaces\ITaxiDelivery;
