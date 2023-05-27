@@ -13,15 +13,19 @@ function getTVFactory(string $model): FactoryTV {
             return new \App\Factories\LGFactory();
     }
 
-    throw new Exception('Такого производителя нет.');
+    throw new Exception("Производителя {$model} нет.");
 }
 
-$lgFactory = getTVFactory('lg');
-$lgFactory->createLcdTv()->getLcdTV();
-$lgFactory->createLedTv()->getLedTV();
+try {
+    $lgFactory = getTVFactory('lg');
+    $sonyFactory = getTVFactory('sony');
 
-$sonyFactory = getTVFactory('sony');
-$sonyFactory->createLcdTv()->getLcdTV();
-$sonyFactory->createLedTv()->getLedTV();
+    $lgFactory->createLcdTv()->getLcdTV();
+    $lgFactory->createLedTv()->getLedTV();
 
+    $sonyFactory->createLcdTv()->getLcdTV();
+    $sonyFactory->createLedTv()->getLedTV();
+}catch (Exception $e) {
+    echo $e->getMessage();
+}
 
