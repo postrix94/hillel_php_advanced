@@ -17,31 +17,31 @@ class ContactBuilder implements Interfaces\IContactBuilder
         return $this;
     }
 
-    public function setName(string $name): IContactBuilder
+    public function name(string $name): IContactBuilder
     {
         $this->contact->setName($name);
         return $this;
     }
 
-    public function setSurname(string $surname): IContactBuilder
+    public function surname(string $surname): IContactBuilder
     {
         $this->contact->setSurname($surname);
         return $this;
     }
 
-    public function setEmail(string $email): IContactBuilder
+    public function email(string $email): IContactBuilder
     {
         $this->contact->setEmail($email);
         return $this;
     }
 
-    public function setPhone(string $phone): IContactBuilder
+    public function phone(string $phone): IContactBuilder
     {
         $this->contact->setPhone($phone);
         return $this;
     }
 
-    public function setAddress(string $address): IContactBuilder
+    public function address(string $address): IContactBuilder
     {
         $this->contact->setAddress($address);
         return $this;
