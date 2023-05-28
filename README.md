@@ -1,13 +1,28 @@
-Розробити структуру класів за допомогою патерну Абстрактна фабрика.
+Зробіть рефакторинг коду:
 
-ТЗ:
+class Contact {
+private $name;
+private $surname;
+private $email;
+private $phone;
+private $address;
 
-Має бути 2 фабрики (Sony, LG) котрі створюють сімейство телевізорів:
+    public function __construct($name, $surname, $email, $phone, $address)
+    {
+        $this->name = $name;
+        $this->surname = $surname;
+        $this->email = $email;
+        $this->phone = $phone;
+        $this->address = $address;
+    }
+}
 
-LED TV
-LCD TV
+Так щоб нові об'єкти можна було б створювати таки способом:
 
-
-Метода класів робимо максимально простими.
-
-Всі класи та інтерфейси мають бути в окремих файлах
+$contact = new Contact();
+$newContact = $contact->phone('000-555-000')
+->name("John")
+->surname("Surname")
+->email("john@email.com")
+->address("Some address")
+->build();
