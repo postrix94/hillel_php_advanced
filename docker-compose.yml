@@ -1,0 +1,46 @@
+version: "3.9"
+
+networks:
+  php_advanced:
+    driver: bridge
+
+volumes:
+  db_volume:
+    driver: local
+
+
+services:
+  app:
+    build:
+      context: docker/php
+    restart: always
+    volumes:
+      - .:/var/www/html
+    ports:
+      - "8081:80"
+    networks:
+      - php_advanced
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+    networks:
+      - php_advanced
+
+  db:
+    image: "postgres:15.2"
+    hostname: "postgres"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: root12
+    ports:
+      - "5432:5432"
+    volumes:
+      - "./db/postgres-data:/var/lib/postgresql/data"
+    networks:
+      - php_advanced
+
+
+
