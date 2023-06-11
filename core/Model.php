@@ -8,5 +8,7 @@ abstract class Model
 {
     use Queryable;
 
-    abstract static protected function getTableName():string;
+    static protected function getTableName():string {
+        return static::$tableName;
+    }
 }
