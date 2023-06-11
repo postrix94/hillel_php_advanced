@@ -6,6 +6,7 @@ require_once BASE_DIR . "/vendor/autoload.php";
 
 use App\Models\User;
 use Core\DB;
+use Core\Exception\QueryableException;
 
 try {
     if(!session_id()) {
@@ -17,14 +18,15 @@ try {
 
     DB::connect();
 
-    var_dump(User::select()->get());
+    echo phpinfo();
 
 }catch (PDOException $error) {
-    echo "PDO Exception {$error->getMessage()}";
-    exit;
+    showErrorMessage($error);
+} catch (QueryableException $error) {
+    showErrorMessage($error);
 } catch (Exception $error) {
-    echo $error->getMessage();
-    exit;
+    showErrorMessage($error);
+
 }
 
 
