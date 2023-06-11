@@ -18,8 +18,6 @@ try {
 
     DB::connect();
 
-    echo phpinfo();
-
 }catch (PDOException $error) {
     showErrorMessage($error);
 } catch (QueryableException $error) {
