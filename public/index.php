@@ -18,6 +18,10 @@ try {
 
     DB::connect();
 
+    $user = User::selectAll()->orderBy('email', 'desc');
+
+    var_dump($user);
+
 }catch (PDOException $error) {
     showErrorMessage($error);
 } catch (QueryableException $error) {

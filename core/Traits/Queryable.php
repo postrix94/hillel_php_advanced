@@ -118,8 +118,16 @@ trait Queryable
 
     public function orderBy(string $column, string $sqlOrder = "ASC"): static
     {
+        $orders = ['ASC', 'DESC'];
+
         if (!$this->prevent($this->allowedMethodsForOrder)) {
             throw new QueryableException("ORDER BY can not be before: " . implode(', ', $this->allowedMethodsForOrder));
+        }
+
+        $sqlOrder = strtoupper($sqlOrder);
+
+        if(!in_array($sqlOrder, $orders)) {
+            throw new QueryableException("sqlOrder must be ASC or DESC");
         }
 
         $this->commands[] = 'order';
