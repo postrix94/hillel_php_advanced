@@ -30,17 +30,32 @@ services:
       - php_advanced
 
   db:
-    image: "postgres:15.2"
-    hostname: "postgres"
-    restart: always
+    image: "mysql:8"
+#    restart: always
     environment:
-      POSTGRES_PASSWORD: root12
+      MYSQL_ROOT_PASSWORD: secret
+#      MYSQL_USER: postrix
     ports:
-      - "5432:5432"
+      - "33061:3306"
     volumes:
-      - "./db/postgres-data:/var/lib/postgresql/data"
+      - "./db/mysql:/var/lib/mysql"
     networks:
       - php_advanced
+
+
+#  db:
+#    image: "postgres:15.2"
+#    hostname: "postgres"
+#    restart: always
+#    environment:
+#      POSTGRES_PASSWORD: root12
+#    ports:
+#      - "5432:5432"
+#    volumes:
+#      - "./db/postgres-data:/var/lib/postgresql/data"
+#    networks:
+#      - php_advanced
+
 
 
 

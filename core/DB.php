@@ -16,9 +16,12 @@ final class DB
     private function __construct() {}
     private function __clone() {}
 
-    public static function connect(): PDO {
+    public static function  connect(): PDO {
         if(is_null(self::$connect)) {
-            self::$connect = new PDO(self::getDSN(), options:self::OPTIONS);
+            $dbUser = config('db.user');
+            $dbPassword = config('db.password');
+
+            self::$connect = new PDO(self::getDSN(),$dbUser,$dbPassword ,options:self::OPTIONS);
         }
 
         return self::$connect;
@@ -27,13 +30,9 @@ final class DB
     protected static function getDSN():string {
             $dbPrefix = config('db.prefix');
             $dbHost = config('db.host');
-            $dbPort = config('db.port');
             $dbName = config('db.name');
-            $dbUser = config('db.user');
-            $dbPassword = config('db.password');
 
-            return "{$dbPrefix}:host={$dbHost};port={$dbPort};dbname={$dbName};
-            user={$dbUser};password={$dbPassword}";
+            return "{$dbPrefix}:host={$dbHost};dbname={$dbName}";
     }
 
 }

@@ -1,8 +1,12 @@
 <?php
+error_reporting(E_ALL);
+
 require_once dirname(__DIR__) . "/config/constans.php";
 require_once BASE_DIR . "/vendor/autoload.php";
-use Core\DB;
 
+use App\Models\User;
+use Core\DB;
+use Core\Exception\QueryableException;
 
 try {
     if(!session_id()) {
@@ -13,12 +17,14 @@ try {
     $dotenv->load();
 
     DB::connect();
+
 }catch (PDOException $error) {
-    echo "PDO Exception {$error->getMessage()}";
-    exit;
+    showErrorMessage($error);
+} catch (QueryableException $error) {
+    showErrorMessage($error);
 } catch (Exception $error) {
-    echo $error->getMessage();
-    exit;
+    showErrorMessage($error);
+
 }
 
-echo "Connection DB success";
+
