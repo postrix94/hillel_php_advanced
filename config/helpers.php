@@ -35,12 +35,12 @@ function showPageError(Exception $error): void
 {
     switch ($error->getCode()) {
         case 404:
-            view("pages/errors/" . $error->getCode());
             header("HTTP/1.0 404 Not Found", response_code: 404);
+            view("pages/errors/" . $error->getCode());
             break;
         default:
-            view("pages/errors/404");
             header("HTTP/1.0 404 Not Found", response_code: 404);
+            view("pages/errors/404");
             exit;
     }
 
