@@ -2,13 +2,47 @@
 
 use Config\Config;
 
-function config(string $name): string|null {
+function config(string $name): string|null
+{
     return Config::get($name);
 }
 
-function showErrorMessage(Exception $error):void {
+function showErrorMessage(Exception $error): void
+{
     echo $error->getMessage() . "<br>";
     echo $error->getTraceAsString() . "<br>";
     echo($error->getFile() . " ON LINE " . $error->getLine());
     exit;
+}
+
+function view(string $view, array $args = []): void
+{
+    \Core\View::render($view, $args);
+}
+
+function url($path): string
+{
+    return SITE_URL . "/" . $path;
+}
+
+function redirect(string $path): void
+{
+    header("Location: " . url($path));
+    exit;
+}
+
+function showPageError(Exception $error): void
+{
+    switch ($error->getCode()) {
+        case 404:
+            view("pages/errors/" . $error->getCode());
+            header("HTTP/1.0 404 Not Found", response_code: 404);
+            break;
+        default:
+            view("pages/errors/404");
+            header("HTTP/1.0 404 Not Found", response_code: 404);
+            exit;
+    }
+
+
 }
