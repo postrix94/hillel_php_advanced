@@ -8,5 +8,4 @@ class User extends Model
 {
     static protected string|null $tableName = 'users';
 
-
 }
