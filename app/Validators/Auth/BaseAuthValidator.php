@@ -3,6 +3,7 @@
 namespace App\Validators\Auth;
 
 use App\Models\User;
+use App\Services\Auth\AuthService;
 use App\Validators\Base\BaseValidator;
 
 class BaseAuthValidator extends BaseValidator
@@ -17,4 +18,16 @@ class BaseAuthValidator extends BaseValidator
 
         return $isExistUser;
     }
+
+    protected function checkAuthUser(): bool {
+        $isCompare = AuthService::getIsComparePassword();
+
+        if(!$isCompare) {
+            $this->setError("email", "Неправильно введен Email или пароль");
+            $this->setError("password", "Неправильно введен Email или пароль");
+        }
+
+        return $isCompare;
+    }
+
 }

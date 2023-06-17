@@ -8,13 +8,13 @@ if(!session_id()) {
 require_once dirname(__DIR__) . "/config/constans.php";
 require_once BASE_DIR . "/vendor/autoload.php";
 
-
 use App\Models\User;
 use Core\DB;
 use Core\Exception\QueryableException;
 use Core\Router;
 
 try {
+    \Core\Session::destroyFlashSession();
     $dotenv = Dotenv\Dotenv::createUnsafeImmutable(BASE_DIR);
     $dotenv->load();
 

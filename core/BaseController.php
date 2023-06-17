@@ -2,6 +2,7 @@
 
 namespace Core;
 
+use App\Services\Auth\AuthService;
 
 class BaseController
 {
@@ -12,4 +13,5 @@ class BaseController
     public function after(string $action) {
 
     }
+
 }

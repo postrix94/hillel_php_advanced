@@ -1,0 +1,56 @@
+html,body {
+    background-color: #333;
+    color: #ffffff;
+}
+
+.violet-color {
+    background: #6610f2;
+}
+
+.green-color {
+    color: greenyellow;
+}
+
+#createNotes > span {
+    cursor: pointer;
+    color: greenyellow;
+}
+
+#createFolder > span {
+    cursor: pointer;
+    margin-right: 20px;
+    color: gold;
+}
+
+.nav-link {
+    cursor: pointer;
+    color: gold !important;
+}
+.nav-link > .material-symbols-outlined {
+    color: gold;
+    padding-left: 10px;
+}
+
+.nav-link.active-folder {
+    color: greenyellow !important;
+}
+
+.nav-link.active-folder > .material-symbols-outlined {
+    color: greenyellow;
+}
+
+.card-body {
+    background: darkslategrey;
+}
+
+.show-notes > .material-symbols-outlined {
+    color: lightsalmon;
+}
+
+.delete-notes > .material-symbols-outlined {
+    color: red;
+}
+
+.text-black {
+    color: #000000 !important;
+}

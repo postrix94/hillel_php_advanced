@@ -43,6 +43,8 @@ function showPageError(Exception $error): void
             view("pages/errors/404");
             exit;
     }
+}
 
-
+function errors(): array {
+    return \Core\Session::getErrors();
 }
