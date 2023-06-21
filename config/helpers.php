@@ -48,3 +48,15 @@ function showPageError(Exception $error): void
 function errors(): array {
     return \Core\Session::getErrors();
 }
+
+function redirectBack(): void {
+    header('Location: ' . $_SERVER['HTTP_REFERER']);
+    exit;
+}
+
+function responseJson(array $data, int $statusCode = 200): void {
+    http_response_code($statusCode);
+    header("Content-type:application/json; charset=UTF-8");
+    echo json_encode($data);
+    exit;
+}

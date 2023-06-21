@@ -11,3 +11,5 @@ Router::add("logout", [AuthController::class, 'logout', "POST"]);
 Router::add("dashboard", [FoldersController::class, 'index', "GET"]);
 Router::add("folder/{id:\d+}", [FoldersController::class, 'show', "GET"]);
 Router::add("folder/create", [FoldersController::class, 'store', "POST"]);
+Router::add("folder/delete/{id:\d+}", [FoldersController::class, 'delete', 'POST']);
+Router::add("folder/update/{id:\d+}", [FoldersController::class, 'update', 'POST']);

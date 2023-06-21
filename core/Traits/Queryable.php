@@ -144,11 +144,11 @@ trait Queryable
         return $query->execute($fields);
     }
 
-    public function destroy(): bool
+    public function delete(int $id): bool
     {
         $query = "DELETE FROM " . static::getTableName() . " WHERE id = :id";
         $query = Db::connect()->prepare($query);
-        return $query->execute([':id' => $this->id]);
+        return $query->execute([':id' => $id]);
     }
 
     protected function updatePlaceholders(array $keys): string

@@ -100,7 +100,6 @@ class Router
 
     static protected function getAction(BaseController $controller): string {
         $action = static::$params["action"] ?? null;
-
         if(!method_exists($controller, $action)) {
             throw new \Exception("Method [{$action}] => ". $controller::class . " not exists");
         }

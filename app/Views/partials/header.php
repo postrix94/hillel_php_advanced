@@ -18,5 +18,20 @@
 </head>
 <body>
 
+<?php
+$status = \Core\Session::getFlash("alert");
+$message = \Core\Session::getFlash("message");
+?>
+
+<?php if(!empty($status) && !empty($message)): ?>
+    <div class="alert alert-<?= $status ?> alert-dismissible fade show text-center position-absolute" style="z-index: 999;left: 0;right: 0" role="alert">
+        <strong><?= $message ?></strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+<?php endif; ?>
+
+
 
 

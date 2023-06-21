@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-dark bg-dark">
     <div class="d-flex align-items-center">
         <a class="navbar-brand" href="<?= url("dashboard") ?>">
@@ -34,7 +35,7 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title text-black" id="createNewFolder">New message</h5>
+                <h5 class="modal-title text-black" >New message</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -44,6 +45,7 @@
                     <div class="form-group text-black">
                         <label for="recipient-name" class="col-form-label">Название папки:</label>
                         <input type="text" class="form-control" id="recipient-name" name="folder_name">
+                        <div id="error_create_folder" class='invalid-feedback'></div>
                     </div>
                 </form>
             </div>
