@@ -54,6 +54,7 @@ function redirectBack(): void {
     exit;
 }
 
+
 function responseJson(array $data, int $statusCode = 200): void {
     http_response_code($statusCode);
     header("Content-type:application/json; charset=UTF-8");

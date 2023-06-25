@@ -11,7 +11,7 @@ html,body {
     color: greenyellow;
 }
 
-#createNotes > span {
+#createNote > span {
     cursor: pointer;
     color: greenyellow;
 }
@@ -53,4 +53,11 @@ html,body {
 
 .text-black {
     color: #000000 !important;
+}
+
+.btn-delete-note, .btn-delete-note:active, .btn-delete-note:focus {
+    background: transparent;
+    border: none;
+    cursor:pointer;
+    outline: none;
 }

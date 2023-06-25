@@ -18,7 +18,8 @@
         </li>
 
         <li class="nav-item">
-            <a id="createNotes" class="d-flex" data-toggle="tooltip" data-placement="top" title="Создать заметку">
+            <a id="createNote" href="<?= url("note/create") ?>" class="d-flex"
+               data-placement="top" title="Создать заметку"  data-toggle="modal">
                <span class="material-symbols-outlined">add_notes</span>
             </a>
         </li>
@@ -56,3 +57,4 @@
         </div>
     </div>
 </div>
+

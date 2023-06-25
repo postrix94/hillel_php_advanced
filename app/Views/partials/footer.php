@@ -11,7 +11,8 @@
 <script>
     $(document).ready(function () {
         $('#createFolder').tooltip()
-        $('#createNotes').tooltip()
+        $('#createNote').tooltip()
+
         const formCreateFolder = document.getElementById("newFolderForm");
         const btnDeleteFolder = document.getElementById('deleteFolder');
         const formEditFolder = document.getElementById("editFolderForm");
@@ -103,7 +104,12 @@
         }
 
 
-    });
+        $("#createNote").on("click", function (e) {
+            console.log(this.href)
+            window.location = this.href;
+        });
+
+        });
 </script>
 </body>
 </html>

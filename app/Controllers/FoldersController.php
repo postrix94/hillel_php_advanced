@@ -11,6 +11,8 @@ use Core\Session;
 
 class FoldersController extends \Core\BaseController
 {
+    const SHARED_FOLDER = 0;
+
     public function before(string $action): bool
     {
         if (AuthService::check()) {
@@ -20,21 +22,22 @@ class FoldersController extends \Core\BaseController
         redirect('login');
     }
 
+
     public function index()
     {
         $user = AuthService::user();
-        $folders = Folder::getFolders($user->id);
-
-        return view('pages/dashboard', ['title' => 'Главная', 'user' => $user, 'folders' => $folders, 'activeFolder' => 1]);
+        return view('pages/dashboard', ['title' => 'Главная', 'user' => $user, 'activeFolder' => 1]);
     }
 
     public function show(int $id)
     {
         $user = AuthService::user();
-        if (!Folder::find($id)) throw new ClientErrorException("Папка {$id} не найдена!", 404);
 
-        $folders = Folder::getFolders($user->id);
-        return view('pages/dashboard', ['title' => 'Главная', 'user' => $user, 'folders' => $folders, 'activeFolder' => $id]);
+        if($id !== static::SHARED_FOLDER) {
+            if (!Folder::find($id)) throw new ClientErrorException("Папка {$id} не найдена!", 404);
+        }
+
+        return view('pages/dashboard', ['title' => 'Главная', 'user' => $user, 'activeFolder' => $id]);
     }
 
     public function store()

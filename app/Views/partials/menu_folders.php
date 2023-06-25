@@ -1,9 +1,12 @@
 <h6 class="text-center mt-4 mb-3">Папки</h6>
 <ul class="nav nav-pills">
-    <?php foreach ($folders as $folder):
+
+    <?php foreach ($user->folders() as $folder):
+
         $active = (isset($activeFolder) && $activeFolder === $folder->id) ? "folder_open" : "folder";
         $activeColor = $active === "folder_open" ? 'active-folder' : '';
         $linkFolder = url("folder/{$folder->id}");
+
         echo "<li class='nav-item'>
         <a class='nav-link {$activeColor} d-flex font-weight-normal' href='{$linkFolder}'>
             {$folder->title}
@@ -14,7 +17,7 @@
     endforeach; ?>
 </ul>
 
-<?php if (isset($activeFolder) && $activeFolder !== 1): ?>
+<?php if (isset($activeFolder) && $activeFolder > 1): ?>
     <div class="d-flex justify-content-end">
         <div>
             <button type="button" class="btn btn-sm btn-outline-warning" data-toggle="modal" data-target="#editFolder" data-whatever="Редактировать папку">
@@ -56,3 +59,16 @@
     </div>
 </div>
 
+<?php
+
+foreach ($user->folders() as $folder) {
+
+    if($folder->id === $activeFolder) {
+        $folder->isGeneral()
+            ? view("partials/notes", ['notes' => $folder->allNotes()])
+            : view("partials/notes", ['notes' => $folder->notes()]);
+    }
+}
+
+
+?>

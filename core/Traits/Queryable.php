@@ -40,6 +40,12 @@ trait Queryable
         return $obj;
     }
 
+    public function join(string $table, string $id_first_table, string $id_second_table,  string $union = 'INNER'): static {
+
+        static::$query .= "{$union} JOIN  {$table} ON " . static::getTableName() .".{$id_first_table} = {$table}.{$id_second_table} ";
+        return $this;
+    }
+
     static public function find(int $id): static|bool
     {
         $query = Db::connect()->prepare("SELECT * FROM " . static::$tableName . " WHERE id = :id");
@@ -116,7 +122,7 @@ trait Queryable
         return $this->where($column, $value, $operator);
     }
 
-    public function orderBy(string $column, string $sqlOrder = "ASC"): static
+    public function orderBy(array $columns,): static
     {
         $orders = ['ASC', 'DESC'];
 
@@ -124,14 +130,22 @@ trait Queryable
             throw new QueryableException("ORDER BY can not be before: " . implode(', ', $this->allowedMethodsForOrder));
         }
 
-        $sqlOrder = strtoupper($sqlOrder);
+        $this->commands[] = 'order';
 
-        if(!in_array($sqlOrder, $orders)) {
-            throw new QueryableException("sqlOrder must be ASC or DESC");
+        static::$query .= " ORDER BY ";
+
+        $lastKey = array_key_last($columns);
+
+        foreach ($columns as $column => $order) {
+            $sqlOrder = strtoupper($order);
+
+            if(!in_array($sqlOrder, $orders)) {
+                throw new QueryableException("sqlOrder must be ASC or DESC");
+            }
+
+            static::$query .= " {$column} {$order}" . ($column === $lastKey ? '' : ',');
         }
 
-        $this->commands[] = 'order';
-        self::$query .= "ORDER BY {$column} {$sqlOrder} ";
         return $this;
     }
 
@@ -144,12 +158,21 @@ trait Queryable
         return $query->execute($fields);
     }
 
+
     public function delete(int $id): bool
     {
         $query = "DELETE FROM " . static::getTableName() . " WHERE id = :id";
         $query = Db::connect()->prepare($query);
         return $query->execute([':id' => $id]);
     }
+
+    public function deleteBy(string $column, int $id): bool
+    {
+        $query = "DELETE FROM " . static::getTableName() . " WHERE {$column} = :id";
+        $query = Db::connect()->prepare($query);
+        return $query->execute([':id' => $id]);
+    }
+
 
     protected function updatePlaceholders(array $keys): string
     {
@@ -172,6 +195,19 @@ trait Queryable
         }
 
         return false;
+    }
+
+
+    public function pluck(string $column): array
+    {
+        $result = $this->get();
+        $newArr = [];
+
+        foreach ($result as $item) {
+            $newArr[] = $item->$column;
+        }
+
+        return $newArr;
     }
 
     public function get(): array|bool
