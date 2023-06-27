@@ -1,18 +1,29 @@
 <h6 class="text-center mt-4 mb-3">Папки</h6>
 <ul class="nav nav-pills">
 
-    <?php foreach ($user->folders() as $folder):
+    <?php foreach ($user->folders() as $index => $folder):
 
-        $active = (isset($activeFolder) && $activeFolder === $folder->id) ? "folder_open" : "folder";
-        $activeColor = $active === "folder_open" ? 'active-folder' : '';
-        $linkFolder = url("folder/{$folder->id}");
+        if(is_array($folder) && isset($folder["Shared"])) {
+            if(!count($folder["Shared"])) continue;
+            $active = (isset($activeFolder) && $activeFolder === $index) ? "folder_open" : "folder";
+            $activeColor = $active === "folder_open" ? 'active-folder' : '';
+            $linkFolder = url("folder/{$index}");
+
+        } else {
+            $active = (isset($activeFolder) && $activeFolder === $folder->id) ? "folder_open" : "folder";
+            $activeColor = $active === "folder_open" ? 'active-folder' : '';
+            $linkFolder = url("folder/{$folder->id}");
+        }
+
+        $folderTitle = $folder->title ?? "Shared";
+
 
         echo "<li class='nav-item'>
-        <a class='nav-link {$activeColor} d-flex font-weight-normal' href='{$linkFolder}'>
-            {$folder->title}
-            <span class='material-symbols-outlined'>{$active}</span>
-        </a>
-    </li>";
+                <a class='nav-link {$activeColor} d-flex font-weight-normal' href='{$linkFolder}'>
+                    {$folderTitle}
+                <span class='material-symbols-outlined'>{$active}</span>
+                </a>
+            </li>";
 
     endforeach; ?>
 </ul>
@@ -61,7 +72,14 @@
 
 <?php
 
-foreach ($user->folders() as $folder) {
+foreach ($user->folders() as $index => $folder) {
+
+    if(is_array($folder) && $activeFolder === $index) {
+        view("partials/notes", ['notes' => $folder["Shared"], 'isShared' => true]);
+        continue;
+    }
+
+    if(is_array($folder)) continue;
 
     if($folder->id === $activeFolder) {
         $folder->isGeneral()

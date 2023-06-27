@@ -26,4 +26,10 @@ class Note extends Model
     public function sharedNote(): array {
        return SharedNote::select(['user_id'])->where('note_id', $this->id)->pluck('user_id');
     }
+
+    public function isSharedNoteUser(int $noteId, int $userId): bool {
+        return (bool) SharedNote::selectAll()->where('note_id', $noteId)->andWhere('user_id', $userId)->get();
+    }
+
+
 }

@@ -15,7 +15,7 @@ class Folder extends Model
            ->orWhere('author_id', static::GENERAL_FOLDER_ID)
           ->orderBy(['id' => 'ASC'])->get();
 
-//        array_unshift($folders, ["Shared" => static::sharedNotes()]);
+        array_unshift($folders, ["Shared" => static::sharedNotes()]);
         return $folders;
     }
 

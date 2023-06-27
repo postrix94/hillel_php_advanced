@@ -26,7 +26,10 @@ class NotesController extends BaseController
     public function show($id) {
         $user = AuthService::user();
         $note = Note::find($id);
-        if(!$note || $note->author_id !== $user->id) {
+
+        if(!$note ||
+            ($note->author_id !== $user->id && !$note->isSharedNoteUser($note->id, $user->id))
+            ) {
             throw new ClientErrorException(code:404);
         }
 
